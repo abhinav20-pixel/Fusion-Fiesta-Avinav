@@ -5,6 +5,7 @@ Fusion Fiesta Esports is a modern BGMI tournament registration web application b
 The platform allows players to register their squads, submit payment proofs, and participate in the tournament.
 
 ---
+for live link - https://fusion-fiesta-avinav.onrender.com/
 
 ## 🚀 Features
 
