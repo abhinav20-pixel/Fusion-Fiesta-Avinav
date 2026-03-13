@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-bg min-h-[80vh] flex items-center pt-10">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8 fade-in reveal relative">
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-[#ff3b3b] rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
+            
+            <h3 class="font-bebas text-[#ff7a18] text-2xl tracking-widest uppercase">Get Ready to Battle</h3>
+            <h1 class="font-orbitron font-black text-5xl md:text-7xl leading-tight">
+                FUSION FIESTA <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff3b3b] to-[#ff7a18] text-neon">ESPORTS</span>
+            </h1>
+            <p class="text-xl text-gray-300 border-l-4 border-[#ff3b3b] pl-4">BGMI Tournament 2026. Prove your mettle, survive the battleground, and take home the ultimate glory.</p>
+            
+            <div class="flex flex-wrap gap-6 pt-4">
+                <a href="{{ url_for('register') }}" class="clay-btn">
+                    <i class="fas fa-crosshairs"></i> Register Squad
+                </a>
+                <a href="{{ url_for('rules') }}" class="clay-btn bg-transparent border border-gray-700 hover:border-[#ff3b3b]">
+                    <i class="fas fa-scroll"></i> Tournament Rules
+                </a>
+            </div>
+        </div>
+        
+        <div class="flex justify-center relative fade-in reveal animate-float-delay">
+            <div class="absolute inset-0 bg-[#ff3b3b] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+            <!-- Dynamic 3D Element Placeholder -->
+            <div class="clay-card w-full max-w-sm border-[#ff3b3b]/30 border shadow-[0_0_30px_rgba(255,59,59,0.2)]">
+                <div class="text-center space-y-4">
+                    <h3 class="font-orbitron text-2xl font-bold text-white mb-6">Match Starts In</h3>
+                    <div class="grid grid-cols-4 gap-4 text-center" id="countdown">
+                        <div class="clay-btn-sm p-3 rounded-xl flex flex-col justify-center items-center">
+                            <span class="text-3xl font-orbitron font-bold text-[#ff3b3b]" id="days">00</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Days</span>
+                        </div>
+                        <div class="clay-btn-sm p-3 rounded-xl flex flex-col justify-center items-center">
+                            <span class="text-3xl font-orbitron font-bold text-[#ff3b3b]" id="hours">00</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Hours</span>
+                        </div>
+                        <div class="clay-btn-sm p-3 rounded-xl flex flex-col justify-center items-center">
+                            <span class="text-3xl font-orbitron font-bold text-[#ff3b3b]" id="minutes">00</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Mins</span>
+                        </div>
+                        <div class="clay-btn-sm p-3 rounded-xl flex flex-col justify-center items-center">
+                            <span class="text-3xl font-orbitron font-bold text-[#ff3b3b]" id="seconds">00</span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Secs</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-800">
+                        <p class="font-poppins text-sm text-gray-400"><i class="fas fa-calendar-alt text-[#ff7a18] mr-2"></i> March 31, 2026</p>
+                        <p class="font-poppins text-sm text-gray-400 mt-2"><i class="fas fa-clock text-[#ff7a18] mr-2"></i> 11:00 AM IST</p>
+                        <p class="font-poppins text-sm text-gray-400 mt-2"><i class="fas fa-map-marker-alt text-[#ff7a18] mr-2"></i> Pragjyotish College</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-[#0a0a0c] relative">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-in reveal">
+            <h2 class="font-orbitron text-4xl font-bold mb-4">Tournament <span class="text-[#ff3b3b]">Details</span></h2>
+            <div class="h-1 w-24 bg-gradient-to-r from-[#ff3b3b] to-[#ff7a18] mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="clay-card text-center fade-in reveal" style="transition-delay: 100ms;">
+                <div class="w-16 h-16 mx-auto bg-[#1a1a1e] rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-trophy text-3xl text-yellow-500 text-neon"></i>
+                </div>
+                <h3 class="font-bebas text-2xl tracking-wider mb-2">Prize Pool</h3>
+                <p class="text-3xl font-orbitron font-bold text-[#ff3b3b] mb-2">₹20,000</p>
+                <p class="text-gray-400 text-sm">Massive cash prizes for top 3 teams and MVP.</p>
+            </div>
+            
+            <div class="clay-card text-center fade-in reveal" style="transition-delay: 200ms;">
+                <div class="w-16 h-16 mx-auto bg-[#1a1a1e] rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-ticket-alt text-3xl text-[#ff7a18] text-neon"></i>
+                </div>
+                <h3 class="font-bebas text-2xl tracking-wider mb-2">Entry Fee</h3>
+                <p class="text-3xl font-orbitron font-bold text-white mb-2">₹699</p>
+                <p class="text-gray-400 text-sm">Per squad. Limited slots available, register ASAP.</p>
+            </div>
+            
+            <div class="clay-card text-center fade-in reveal" style="transition-delay: 300ms;">
+                <div class="w-16 h-16 mx-auto bg-[#1a1a1e] rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-users text-3xl text-blue-500 text-neon"></i>
+                </div>
+                <h3 class="font-bebas text-2xl tracking-wider mb-2">Game Mode</h3>
+                <p class="text-xl font-orbitron font-bold text-white mb-2">Squad TPP</p>
+                <p class="text-gray-400 text-sm">Classic Erangel & Miramar maps for the ultimate showdown.</p>
+            </div>
+
+            <div class="clay-card text-center fade-in reveal" style="transition-delay: 400ms;">
+                <div class="w-16 h-16 mx-auto bg-[#1a1a1e] rounded-2xl flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-mobile-alt text-3xl text-green-500 text-neon"></i>
+                </div>
+                <h3 class="font-bebas text-2xl tracking-wider mb-2">Platform</h3>
+                <p class="text-xl font-orbitron font-bold text-white mb-2">Mobile Only</p>
+                <p class="text-gray-400 text-sm">No emulators or iPads allowed. Fair play strict policy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

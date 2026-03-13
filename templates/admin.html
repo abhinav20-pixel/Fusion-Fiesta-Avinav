@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-12 min-h-[70vh] flex items-center justify-center relative">
+    <!-- Decorative background elements -->
+    <div class="absolute left-1/4 top-1/2 w-96 h-96 bg-[#ff3b3b] rounded-full blur-[200px] opacity-10 pointer-events-none"></div>
+
+    <div class="container mx-auto px-6">
+        
+        {% if login %}
+        <div class="max-w-md mx-auto clay-card fade-in reveal relative z-10">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 mx-auto bg-[#0f0f11] rounded-2xl flex items-center justify-center mb-4 shadow-inner">
+                    <i class="fas fa-user-shield text-3xl text-[#ff3b3b] text-neon"></i>
+                </div>
+                <h2 class="font-orbitron text-2xl font-bold">Admin <span class="text-[#ff3b3b]">Login</span></h2>
+                <p class="text-gray-400 text-sm mt-2">Authorized personnel only.</p>
+            </div>
+            
+            <form action="{{ url_for('admin') }}" method="POST" class="space-y-6">
+                <div>
+                    <input type="text" name="username" placeholder="Username" required class="clay-input text-center font-bold font-orbitron tracking-widest text-[#ff7a18]">
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="Password" required class="clay-input text-center font-bold tracking-widest text-[#ff3b3b]">
+                </div>
+                <button type="submit" class="clay-btn w-full">Access Terminal <i class="fas fa-terminal ml-2"></i></button>
+            </form>
+        </div>
+        {% else %}
+        <div class="max-w-7xl mx-auto fade-in reveal relative z-10 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
+                <div>
+                    <h2 class="font-orbitron text-3xl font-bold mb-2">Tournament <span class="text-[#ff3b3b]">Command Center</span></h2>
+                    <p class="text-gray-400 text-sm">Manage squad registrations and payments.</p>
+                </div>
+                <div class="flex gap-4 flex-wrap justify-center">
+                    <a href="{{ url_for('download_csv') }}" class="clay-btn-sm px-6 py-3 text-green-400 flex items-center shadow-none hover:text-green-300">
+                        <i class="fas fa-file-csv mr-2 text-xl"></i> Export CSV
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="clay-btn-sm px-6 py-3 text-[#ff3b3b] flex items-center shadow-none hover:text-red-400">
+                        <i class="fas fa-power-off mr-2 text-xl"></i> Logout
+                    </a>
+                </div>
+            </div>
+            
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Reg. ID</th>
+                            <th>Team Name</th>
+                            <th>Leader Details</th>
+                            <th>In-Game Info</th>
+                            <th class="text-center">Squad Size</th>
+                            <th class="text-center">Payment Auth</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reg in registrations %}
+                        <tr class="hover:bg-[#1a1a20] transition-colors group">
+                            <td class="font-orbitron font-bold text-gray-500">#{{ "%04d" | format(reg[0]) }}</td>
+                            <td class="font-bold text-white text-lg tracking-wider">{{ reg[5] }}</td>
+                            <td>
+                                <p class="text-sm font-bold text-[#ff7a18]">{{ reg[1] }}</p>
+                                <p class="text-xs text-gray-400 font-poppins mt-1"><i class="fas fa-envelope mr-1 w-4 text-center"></i> {{ reg[6] }}</p>
+                                <p class="text-xs text-gray-400 font-poppins mt-1"><i class="fab fa-whatsapp mr-1 text-green-500 w-4 text-center"></i> {{ reg[4] }}</p>
+                            </td>
+                            <td>
+                                <p class="text-sm text-gray-300 font-bold font-orbitron tracking-wider">{{ reg[3] }}</p>
+                                <p class="text-xs text-gray-500 mt-1">ID: {{ reg[2] }}</p>
+                            </td>
+                            <td class="text-center font-bold text-xl">{{ reg[7] }}</td>
+                            <td class="text-center">
+                                <a href="{{ url_for('static', filename='../uploads/' + reg[8]) }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 text-sm transition-colors border border-blue-500/20">
+                                    <i class="fas fa-receipt"></i> View
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('delete', id=reg[0]) }}" onclick="return confirm('WARNING: Are you sure you want to delete squad {{ reg[5] }}? This cannot be undone.')" class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all mx-auto shadow-inner border border-red-500/20" title="Delete Entry">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-12">
+                                <i class="fas fa-box-open text-4xl text-gray-600 mb-4 block"></i>
+                                <span class="text-gray-500 font-bold tracking-wider">NO SQUADS REGISTERED YET.</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

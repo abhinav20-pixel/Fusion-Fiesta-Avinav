@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-12">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12 fade-in reveal">
+            <h1 class="font-orbitron text-4xl md:text-5xl font-bold mb-4">Register <span
+                    class="text-[#ff3b3b]">Squad</span></h1>
+            <p class="text-gray-400">Secure your spot in the Fusion Fiesta Esports BGMI Tournament.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+            <!-- Payment Info -->
+            <div class="lg:col-span-4 space-y-8 fade-in reveal">
+                <div class="clay-card border-t-4 border-[#ff7a18]">
+                    <h3 class="font-bebas text-2xl mb-6 flex items-center gap-3"><i
+                            class="fas fa-qrcode text-[#ff7a18]"></i> Payment Details</h3>
+
+                    <div class="bg-black/50 p-6 rounded-xl mb-6 flex justify-center border border-gray-800">
+                        <!-- UPI QR Code -->
+                        <div class="w-48 h-48 bg-white p-2 rounded-xl flex items-center justify-center overflow-hidden">
+                            <img src="{{ url_for('static', filename='images/payout-qr.png') }}" alt="UPI QR Code"
+                                class="w-full h-full object-contain mix-blend-multiply">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center bg-[#0f0f11] p-4 rounded-xl shadow-inner">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">UPI ID</p>
+                                <p class="font-orbitron font-bold text-white text-sm" id="upi-id">raj2006das@pingpay</p>
+                            </div>
+                            <button onclick="copyUPI()" type="button"
+                                class="clay-btn-sm w-10 h-10 flex items-center justify-center text-[#ff3b3b] hover:text-white"
+                                title="Copy UPI ID">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-4 bg-[rgba(255,59,59,0.05)] border border-[rgba(255,59,59,0.1)] rounded-xl">
+                            <h4 class="font-bold text-[#ff3b3b] mb-2 text-sm uppercase tracking-wide">Instructions:</h4>
+                            <ol class="list-decimal list-inside text-sm text-gray-400 space-y-2">
+                                <li>Scan QR code or copy UPI ID.</li>
+                                <li>Pay the entry fee of ₹699.</li>
+                                <li>Take a clear screenshot of the successful payment.</li>
+                                <li>Upload the screenshot in the form.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="lg:col-span-8 fade-in reveal" style="transition-delay: 200ms;">
+                <div class="clay-card">
+                    <form action="{{ url_for('register') }}" method="POST" enctype="multipart/form-data"
+                        class="space-y-6">
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Team Name *</label>
+                                <input type="text" name="team_name" required class="clay-input"
+                                    placeholder="Enter Team Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Number of Players *</label>
+                                <select name="num_players" required
+                                    class="clay-input appearance-none bg-[#0f0f11] text-white">
+                                    <option value="4">4 Players</option>
+                                    <option value="5">5 Players (1 Substitute)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader Name *</label>
+                                <input type="text" name="player_name" required class="clay-input"
+                                    placeholder="Your Full Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader Phone Number (WhatsApp)
+                                    *</label>
+                                <input type="tel" name="phone_number" required class="clay-input"
+                                    placeholder="10-digit number">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader In-Game Name *</label>
+                                <input type="text" name="in_game_name" required class="clay-input"
+                                    placeholder="Exact IGN">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader BGMI ID *</label>
+                                <input type="text" name="bgmi_id" required class="clay-input"
+                                    placeholder="10-digit character ID">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader Department *</label>
+                                <input type="text" name="p1_dept" required class="clay-input" placeholder="e.g. BCA, B.Sc">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Leader Class/Semester *</label>
+                                <input type="text" name="p1_class" required class="clay-input" placeholder="e.g. 5th Semester">
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-800 my-8">
+                        <h4 class="font-orbitron font-bold text-xl text-[#ff3b3b] mb-4">Player 2 Details</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 2 Name *</label>
+                                <input type="text" name="p2_name" required class="clay-input" placeholder="Full Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 2 Game ID *</label>
+                                <input type="text" name="p2_game_id" required class="clay-input" placeholder="In-Game Name or ID">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 2 Department *</label>
+                                <input type="text" name="p2_dept" required class="clay-input" placeholder="Department">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 2 Class/Semester *</label>
+                                <input type="text" name="p2_class" required class="clay-input" placeholder="Semester">
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-800 my-8">
+                        <h4 class="font-orbitron font-bold text-xl text-[#ff7a18] mb-4">Player 3 Details</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 3 Name *</label>
+                                <input type="text" name="p3_name" required class="clay-input" placeholder="Full Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 3 Game ID *</label>
+                                <input type="text" name="p3_game_id" required class="clay-input" placeholder="In-Game Name or ID">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 3 Department *</label>
+                                <input type="text" name="p3_dept" required class="clay-input" placeholder="Department">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 3 Class/Semester *</label>
+                                <input type="text" name="p3_class" required class="clay-input" placeholder="Semester">
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-800 my-8">
+                        <h4 class="font-orbitron font-bold text-xl text-blue-500 mb-4">Player 4 Details</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 4 Name *</label>
+                                <input type="text" name="p4_name" required class="clay-input" placeholder="Full Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 4 Game ID *</label>
+                                <input type="text" name="p4_game_id" required class="clay-input" placeholder="In-Game Name or ID">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 4 Department *</label>
+                                <input type="text" name="p4_dept" required class="clay-input" placeholder="Department">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-gray-400 ml-2">Player 4 Class/Semester *</label>
+                                <input type="text" name="p4_class" required class="clay-input" placeholder="Semester">
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-800 my-8">
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-400 ml-2">Email Address *</label>
+                            <input type="email" name="email" required class="clay-input" placeholder="For confirmation">
+                        </div>
+
+                        <div class="space-y-2 mt-8">
+                            <label class="text-sm font-bold text-gray-400 ml-2">Payment Screenshot *</label>
+                            <label class="file-upload-label group relative">
+                                <i
+                                    class="fas fa-cloud-upload-alt group-hover:text-[#ff7a18] transition-colors relative z-10"></i>
+                                <span class="font-bold text-lg text-gray-300 relative z-10" id="file-name">Click to
+                                    browse or drag & drop</span>
+                                <span class="text-sm relative z-10">Supports JPG, PNG</span>
+                                <input type="file" name="payment_screenshot" id="payment_screenshot"
+                                    accept="image/png, image/jpeg, image/jpg" required onchange="updateFileName(this)"
+                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                            </label>
+                        </div>
+
+                        <div class="pt-6">
+                            <button type="submit" class="clay-btn w-full py-4 text-xl">
+                                <i class="fas fa-paper-plane mr-2"></i> Submit Registration
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function copyUPI() {
+        const upiId = document.getElementById('upi-id').innerText;
+        navigator.clipboard.writeText(upiId).then(() => {
+            alert('UPI ID copied to clipboard!');
+        });
+    }
+
+    function updateFileName(input) {
+        const fileName = input.files[0] ? input.files[0].name : "Click to browse or drag & drop";
+        document.getElementById('file-name').innerText = fileName;
+        document.getElementById('file-name').classList.add('text-[#ff3b3b]');
+    }
+</script>
+{% endblock %}
