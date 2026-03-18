@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import csv
-from flask import Flask, render_template, request, redirect, url_for, flash, session, send_file
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_file, send_from_directory
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -183,6 +183,10 @@ def download_csv():
             
         return send_file(csv_file_path, as_attachment=True)
     return redirect(url_for('admin'))
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     init_db()
