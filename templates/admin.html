@@ -73,7 +73,7 @@
                             </td>
                             <td class="text-center font-bold text-xl">{{ reg[7] }}</td>
                             <td class="text-center">
-                                <a href="{{ url_for('static', filename='../uploads/' + reg[8]) }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 text-sm transition-colors border border-blue-500/20">
+                                <a href="{{ url_for('uploaded_file', filename=reg[8]) }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 text-sm transition-colors border border-blue-500/20">
                                     <i class="fas fa-receipt"></i> View
                                 </a>
                             </td>
